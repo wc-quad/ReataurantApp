@@ -35,7 +35,7 @@
             function listRestaurants(){
               restaurants.fetch(
                   function() { // Success
-  //                  $('#restaurant-list').empty();
+                      $('#restaurant-list').empty();
                       while(restaurants.hasNextEntity()) {
                           var restaurant = restaurants.getNextEntity();
                           $('#restaurant-list').append(
