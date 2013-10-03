@@ -14,36 +14,53 @@
   <script src="js/jquery.mobile-1.3.1.min.js"></script>
   <script src="js/codiqa.ext.min.js"></script>
   <script src="js/restaurantapp.js"></script>
+
   <script src="js/apigee.min.js"></script>
-  <script type="text/javascript">
+
+        <script type="text/javascript">
 
             // Initializing the SDK
             var client = new Apigee.Client({
-                orgName:'gmabe', // Your Usergrid organization name (or apigee.com username for App Services)
+                orgName:'YOUR ORG NAME',
                 appName:'sandbox' // Your Usergrid app name
             });
 
+            $(document).ready( function() {
+                listRestaurants();
+            });
+
             // Reading data
-            var restaurants = new Apigee.Collection({ "client":client, "type":"restaurants" });
-            restaurants.fetch(
-                function() { // Success
-                    while(restaurants.hasNextEntity()) {
-                        var restaurant = restaurants.getNextEntity();
-                        alert(restaurant.get("name")); // Output the name of the restaurant
-                    }
-                }, function() { // Failure
-                    alert("read failed");
-                }
-            );
+            var restaurants = new Apigee.Collection({ "client":client, "type":"restaurant" });
+
+            function listRestaurants(){
+              restaurants.fetch(
+                  function() { // Success
+  //                  $('#restaurant-list').empty();
+                      while(restaurants.hasNextEntity()) {
+                          var restaurant = restaurants.getNextEntity();
+                          $('#restaurant-list').append(
+                        '<li data-theme="c">' +
+                            '<h2>' + restaurant.get("name") + '</h2>' +
+                            '<p>' + restaurant.get("city") + '</p>' +
+                        '</li>');
+  //                                alert(restaurant.get("name")); // Output the restaurant's name
+                      }
+  //                    $('#restaurant-list').listview('refresh');
+
+                  }, function() { // Failure
+                      alert("read failed");
+                  }
+              );
+            }
 
             // Uncomment the next 4 lines if you want to write data
 
-            // restaurant = { "name": "the old man and the sea" };
-            // restaurants.addEntity(restaurant, function (error, response) {
+            // book = { "title": "the old man and the sea" };
+            // books.addEntity(book, function (error, response) {
             //  if (error) { alert("write failed");
             //  } else { alert("write succeeded"); } });
         </script>
-  
+
 </head>
 <body>
   <div data-role="page" data-control-title="Home" id="home-page">
