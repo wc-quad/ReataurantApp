@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Crook's Corner",
+    "city": "Chapel Hill",
+    "latitude": 35.90991,
+    "longitude": -79.06487
+  },
+  {
+    "name": "The Q Shack",
+    "city": "Durham",
+    "latitude": 35.97463,
+    "longitude": -78.92429
+  },
+  {
+    "name": "Angus Barn",
+    "city": "Raleigh",
+    "latitude": 35.89852,
+    "longitude": -78.76413
+  }
+]

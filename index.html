@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RestaurantApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <link href="css/codiqa.ext.min.css" rel="stylesheet">
+  <link href="css/jquery.mobile-1.3.1.min.css" rel="stylesheet">
+
+  <script src="js/jquery-1.9.1.min.js"></script>
+  <script src="js/jquery.mobile-1.3.1.min.js"></script>
+  <script src="js/codiqa.ext.min.js"></script>
+  <script src="js/restaurantapp.js"></script>
+  <script src="js/apigee.min.js"></script>
+  <script type="text/javascript">
+
+            // Initializing the SDK
+            var client = new Apigee.Client({
+                orgName:'gmabe', // Your Usergrid organization name (or apigee.com username for App Services)
+                appName:'sandbox' // Your Usergrid app name
+            });
+
+            // Reading data
+            var restaurants = new Apigee.Collection({ "client":client, "type":"restaurants" });
+            restaurants.fetch(
+                function() { // Success
+                    while(restaurants.hasNextEntity()) {
+                        var restaurant = restaurants.getNextEntity();
+                        alert(restaurant.get("name")); // Output the name of the restaurant
+                    }
+                }, function() { // Failure
+                    alert("read failed");
+                }
+            );
+
+            // Uncomment the next 4 lines if you want to write data
+
+            // restaurant = { "name": "the old man and the sea" };
+            // restaurants.addEntity(restaurant, function (error, response) {
+            //  if (error) { alert("write failed");
+            //  } else { alert("write succeeded"); } });
+        </script>
+  
+</head>
+<body>
+  <div data-role="page" data-control-title="Home" id="home-page">
+      <div id="home-page-header" data-theme="b" data-role="header">
+          <a id="add-button" data-role="button" href="#home-page" data-icon="plus" data-iconpos="right"
+          class="ui-btn-right">
+              Add
+          </a>
+          <h3>
+              My Restaurants
+          </h3>
+      </div>
+      <div data-role="content">
+          <ul id="restaurant-list" data-role="listview" data-divider-theme="b" data-inset="false">
+              <li data-theme="c">
+                  <h2>First Restaurant</h2>
+                  <p>First City</p>
+              </li>
+              <li data-theme="c">
+                  <h2>Second Restaurant</h2>
+                  <p>Second City</p>
+              </li>
+          </ul>
+      </div>
+  </div>
+</body>
+</html>
